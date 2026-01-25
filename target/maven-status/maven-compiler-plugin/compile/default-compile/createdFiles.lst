@@ -1,0 +1,11 @@
+lp/JavaFxClient/services/ApiService.class
+lp/JavaFxClient/App.class
+lp/JavaFxClient/model/EstadoDTO.class
+lp/JavaFxClient/controllers/TicketClienteFormController.class
+lp/JavaFxClient/controllers/TicketClienteController$1.class
+lp/JavaFxClient/model/ComentarioDTO.class
+lp/JavaFxClient/controllers/TicketClienteController.class
+lp/JavaFxClient/model/CategoriaDTO.class
+lp/JavaFxClient/model/TicketDtoC.class
+lp/JavaFxClient/model/PrioridadeDTO.class
+lp/JavaFxClient/model/TicketDtoT.class
