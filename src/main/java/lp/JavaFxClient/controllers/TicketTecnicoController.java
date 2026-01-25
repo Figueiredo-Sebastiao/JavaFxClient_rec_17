@@ -14,27 +14,28 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lp.JavaFxClient.model.TicketDtoC;
+import lp.JavaFxClient.model.TicketDtoT;
 import lp.JavaFxClient.services.ApiService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 
-public class TicketClienteController {
+public class TicketTecnicoController {
 
 
     @FXML
-    private TableView<TicketDtoC> tableTicketsC;
-    @FXML private TableColumn<TicketDtoC, Long> idCol;
-    @FXML private TableColumn<TicketDtoC, String> tituloCol;
-    @FXML private TableColumn<TicketDtoC, String> descricaoCol;
-    @FXML private TableColumn<TicketDtoC, String> categoriaCol;
-    @FXML private TableColumn<TicketDtoC, String> estadoCol;
-    @FXML private TableColumn<TicketDtoC, String> tecnicoCol;
-    @FXML private TableColumn<TicketDtoC, String> prioridadeCol;
-    @FXML private TableColumn<TicketDtoC, LocalDate> dataInicioCol;
-    @FXML private TableColumn<TicketDtoC, LocalDate> dataFim;
+    private TableView<TicketDtoT> tabelaTicketT;
+    @FXML private TableColumn<TicketDtoT, Long> idCol;
+    @FXML private TableColumn<TicketDtoT, String> prioridade;
+    @FXML private TableColumn<TicketDtoT, String> tituloCol;
+    @FXML private TableColumn<TicketDtoT, String> descricaoCol;
+    @FXML private TableColumn<TicketDtoT, String> categoriaCol;
+    @FXML private TableColumn<TicketDtoT, String> estadoCol;
+    @FXML private TableColumn<TicketDtoT, String> clienteCol;
+    @FXML private TableColumn<TicketDtoT, String> prioridadeCol;
+    @FXML private TableColumn<TicketDtoT, LocalDate> dataInicioCol;
+    @FXML private TableColumn<TicketDtoT, LocalDate> dataFim;
     private final ApiService service = new ApiService();
     private final ObjectMapper mapper = new ObjectMapper();
     private long id;
@@ -58,7 +59,7 @@ public class TicketClienteController {
         categoriaCol.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
         prioridadeCol.setCellValueFactory(new PropertyValueFactory<>("prioridade"));
-        tecnicoCol.setCellValueFactory(new PropertyValueFactory<>("tecnico"));
+        clienteCol.setCellValueFactory(new PropertyValueFactory<>("cliente"));
         dataInicioCol.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
         dataFim.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
         System.out.println("IDCol = " + idCol);
@@ -70,37 +71,36 @@ public class TicketClienteController {
     }
 
 
-// Apagar
+    // Remover Ticket
     @FXML
-    public void onApagar() {
-        TicketDtoC ticketSelec = tableTicketsC.getSelectionModel().getSelectedItem();
+    public void onRemove() {
+        TicketDtoT ticketSelec = tabelaTicketT.getSelectionModel().getSelectedItem();
         if (ticketSelec == null) {
             showError("Selecione o ticket");
             return;
         }
-
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Apagar Ticket " + ticketSelec.getTitulo() + "?",
+                "Remover Ticket " + ticketSelec.getTitulo() + "?",
                 ButtonType.YES, ButtonType.NO);
         confirm.showAndWait();
         if (confirm.getResult() != ButtonType.YES) return;
-        if (ticketSelec.getEstado()==2){
-            showError("Nao pode apagar um ticket em processo");
+        if (ticketSelec.getEstado().equals("Pendente")){
+            showError("Ao remover este ticket deixe um comentario explicando porque não conseguiu resolver");
         }
         service.delete("/clientes/"+id+"/tickets/"+ ticketSelec.getIdTicket());
         CaregarTickets();
     }
 
-    // RIGISTAR
+    // Adicionar Ticket
     @FXML
     public void onRegistar() {
         abrirFormulario(null);
     }
 
-//EDITAR
+    //EDITAR
     @FXML
     public void onEditar() {
-        TicketDtoC ticket = tableTicketsC.getSelectionModel().getSelectedItem();
+        TicketDtoT ticket = tabelaTicketT.getSelectionModel().getSelectedItem();
         if (ticket == null) {
             showError("Selecione um ticket");
             return;
@@ -115,7 +115,7 @@ public class TicketClienteController {
     private void CaregarTickets() {
         try {
             List<TicketDtoC> tickets = service.get("/clientes/" + id + "/tickets",new TypeReference<List<TicketDtoC>>() {});
-            tableTicketsC.getItems().setAll(tickets);
+            tabelaTicketT.getItems().setAll(tickets);
 
         } catch (Exception e) {
             showError("Erro ao carregar tickets: " + e.getMessage());

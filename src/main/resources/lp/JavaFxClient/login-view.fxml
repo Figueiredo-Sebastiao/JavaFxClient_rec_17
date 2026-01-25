@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lp.JavaFxClient.controllers.LoginController">
    <children>
       <GridPane layoutX="20.0" layoutY="23.0" prefHeight="356.0" prefWidth="559.0">
         <columnConstraints>
@@ -24,9 +24,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+             <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#onLogin" text="Login" />
             <Button fx:id="btnRegistar" mnemonicParsing="false" text="Registar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <PasswordField fx:id="senhacli" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="nomecli" GridPane.columnIndex="1" />
+            <PasswordField fx:id="senha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="email" GridPane.columnIndex="1" />
             <Label text="Nome" />
             <Label text="Senha" GridPane.rowIndex="1" />
          </children>

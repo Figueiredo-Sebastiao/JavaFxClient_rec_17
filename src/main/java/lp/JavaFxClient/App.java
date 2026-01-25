@@ -9,7 +9,7 @@ public class App extends Application {
  
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/ticket-cliente-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/login-view.fxml"));
         Scene scene = new Scene(loader.load());
 
         stage.setTitle("School API Client");

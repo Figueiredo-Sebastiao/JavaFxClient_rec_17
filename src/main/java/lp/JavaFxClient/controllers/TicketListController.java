@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-public class TicketClienteController {
+public class TicketListController {
 
 
     @FXML
@@ -31,7 +31,6 @@ public class TicketClienteController {
     @FXML private TableColumn<TicketDtoC, String> descricaoCol;
     @FXML private TableColumn<TicketDtoC, String> categoriaCol;
     @FXML private TableColumn<TicketDtoC, String> estadoCol;
-    @FXML private TableColumn<TicketDtoC, String> tecnicoCol;
     @FXML private TableColumn<TicketDtoC, String> prioridadeCol;
     @FXML private TableColumn<TicketDtoC, LocalDate> dataInicioCol;
     @FXML private TableColumn<TicketDtoC, LocalDate> dataFim;
@@ -45,7 +44,6 @@ public class TicketClienteController {
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -58,7 +56,6 @@ public class TicketClienteController {
         categoriaCol.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
         prioridadeCol.setCellValueFactory(new PropertyValueFactory<>("prioridade"));
-        tecnicoCol.setCellValueFactory(new PropertyValueFactory<>("tecnico"));
         dataInicioCol.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
         dataFim.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
         System.out.println("IDCol = " + idCol);
@@ -70,7 +67,7 @@ public class TicketClienteController {
     }
 
 
-// Apagar
+    // Apagar
     @FXML
     public void onApagar() {
         TicketDtoC ticketSelec = tableTicketsC.getSelectionModel().getSelectedItem();
@@ -93,20 +90,18 @@ public class TicketClienteController {
 
     // RIGISTAR
     @FXML
-    public void onRegistar() {
-        abrirFormulario(null);
-    }
+    public void onAdicionar() {
 
-//EDITAR
-    @FXML
-    public void onEditar() {
-        TicketDtoC ticket = tableTicketsC.getSelectionModel().getSelectedItem();
-        if (ticket == null) {
-            showError("Selecione um ticket");
+        TicketDtoC ticketSelec = tableTicketsC.getSelectionModel().getSelectedItem();
+        if (ticketSelec == null) {
+            showError("Selecione o ticket");
             return;
         }
-        abrirFormulario(ticket);
+        Long idTicket=ticketSelec.getIdTicket();
+        service.get("/"+id+"/tickets/"+idTicket);
     }
+
+
 
 
 
@@ -114,7 +109,7 @@ public class TicketClienteController {
     /// /////////////////////////METODOS//////////////////////////////////////////
     private void CaregarTickets() {
         try {
-            List<TicketDtoC> tickets = service.get("/clientes/" + id + "/tickets",new TypeReference<List<TicketDtoC>>() {});
+            List<TicketDtoC> tickets = service.get("/clientes/tickets",new TypeReference<List<TicketDtoC>>() {});
             tableTicketsC.getItems().setAll(tickets);
 
         } catch (Exception e) {

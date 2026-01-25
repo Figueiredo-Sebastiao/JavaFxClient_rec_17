@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="314.0" prefWidth="604.0" spacing="10.0" xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.TicketClienteController">
+    <padding>
+        <Insets top="10.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="547.0" spacing="20.0">
+            <children>
+                <Label text="Courses" textAlignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Pane prefHeight="200.0" prefWidth="200.0" />
+                <Button fx:id="btnRegistar" mnemonicParsing="false" onAction="#onRegistar" text="Adicionar"/>
+             </children>
+        </HBox>
+        <TableView fx:id="tableTicketsC" prefHeight="200.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="n" text="N" />
+                <TableColumn fx:id="idCol" text="N" />
+                <TableColumn fx:id="tituloCol" prefWidth="100.0" text="Titulo" />
+                <TableColumn fx:id="descricaoCol" prefWidth="140.0" text="DeSCRICAO" />
+                <TableColumn fx:id="categoriaCol" prefWidth="75.0" text="CATEGORIA" />
+                <TableColumn fx:id="estadoCol" prefWidth="75.0" text="ESTADO" />
+                <TableColumn fx:id="prioridadeCol" prefWidth="75.0" text="PRIORIDADE" />
+                <TableColumn fx:id="tecnicoCol" prefWidth="75.0" text="TECNICO" />
+                <TableColumn fx:id="dataInicioCol" prefWidth="75.0" text="DATA" />
+                <TableColumn fx:id="dataFim" prefWidth="75.0" text="Terminou" />
+            <TableColumn fx:id="dataFim1" prefWidth="75.0" text="Terminou">
+               <graphic>
+                  <Button mnemonicParsing="false" onAction="#onApagar" text="Apagar" />
+               </graphic>
+            </TableColumn>
+            </columns>
+            <cursor>
+                <Cursor fx:constant="MOVE" />
+            </cursor>
+        </TableView>
+    </children>
+</VBox>

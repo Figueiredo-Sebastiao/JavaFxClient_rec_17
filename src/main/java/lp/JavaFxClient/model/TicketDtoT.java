@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TicketDtoT {
 
-        //private Long idTicket;
+        private Long idTicket;
         private String cliente;
         private String titulo;
         private String descricao;
@@ -102,5 +102,13 @@ public class TicketDtoT {
 
     public void setComentarios(List<ComentarioDTO> comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public Long getIdTicket() {
+        return idTicket;
+    }
+
+    public void setIdTicket(Long idTicket) {
+        this.idTicket = idTicket;
     }
 }
