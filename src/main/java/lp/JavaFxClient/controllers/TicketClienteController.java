@@ -71,13 +71,14 @@ public class TicketClienteController implements Initializable {
     @FXML
     public void onComentario() {
         try {
-            TicketDtoC t = tableTicketsC.getSelectionModel().getSelectedItem();
-            if (t == null) { erro("Selecione um ticket"); return; }
+            TicketDtoC ticketSelecionado = tableTicketsC.getSelectionModel().getSelectedItem();
+            if (ticketSelecionado == null) { erro("Selecione um ticket"); return; }
 
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/lp/JavaFxClient/comentario-view.fxml")
-            );
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/comentario-view.fxml"));
             Parent root = loader.load();
+            ComentarioController controller= loader.getController();
+            controller.configurar(ticketSelecionado.getIdTicket(),idCliente, "CLIENTE");
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -106,12 +107,12 @@ public class TicketClienteController implements Initializable {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/lp/JavaFxClient/ticket-form-view.fxml"));
 
-            Parent root = loader.load();  // 🔹 primeiro o load
-            TicketClienteFormController controller = loader.getController(); // depois getController()
+            Parent root = loader.load();
+            TicketClienteFormController controller = loader.getController();
             if (ticket == null) {
                 controller.Registo(idCliente);
             } else {
-                controller.Editar(ticket); // 🔹 agora passa o ticket corretamente
+                controller.Editar(ticket);
             }
 
             Stage stage = new Stage();

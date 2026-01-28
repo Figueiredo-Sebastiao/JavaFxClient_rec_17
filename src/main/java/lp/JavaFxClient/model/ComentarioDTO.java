@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class ComentarioDTO {
 
     private Long idComentario;
-    private String texto;
+    private String mensagem;
     private LocalDate data;
 
     public ComentarioDTO() {}
@@ -16,8 +16,8 @@ public class ComentarioDTO {
     // GETTERS & SETTERS
     public Long getIdComentario() { return idComentario; }
     public void setIdComentario(Long idComentario) { this.idComentario = idComentario; }
-    public String getTexto() { return texto; }
-    public void setTexto(String texto) { this.texto = texto; }
+    public String getMensagem() { return mensagem; }
+    public void setMensagem(String mensagem) { this.mensagem = mensagem; }
     public LocalDate getData() { return data; }
     public void setData(LocalDate data) { this.data = data; }
 }

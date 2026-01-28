@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lp.JavaFxClient.model.EstadoDTO;
 import lp.JavaFxClient.model.TicketDtoT;
 import lp.JavaFxClient.services.ApiService;
 
@@ -122,9 +123,8 @@ public class TicketTecnicoController {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/comentario-view.fxml"));
             Parent root = loader.load();
-            ComentarioController controller = loader.getController();
-
-            controller.configurar(ticketSelecionado.getIdTicket(), idTecnico, "TECNICO");
+            ComentarioController controller= loader.getController();
+            controller.configurar(ticketSelecionado.getIdTicket(), idTecnico,"TECNICO");
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -139,6 +139,7 @@ public class TicketTecnicoController {
             showError("Erro ao abrir comentários: " + e.getMessage());
         }
     }
+
 
     private void showError(String msg) {
         new Alert(Alert.AlertType.ERROR, msg).showAndWait();

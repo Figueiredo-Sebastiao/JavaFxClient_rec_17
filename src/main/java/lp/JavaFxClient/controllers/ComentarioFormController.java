@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import lp.JavaFxClient.model.ComentarioDTO;
 import lp.JavaFxClient.services.ApiService;
 
+import java.time.LocalDate;
+
 public class ComentarioFormController {
 
     @FXML private Label formTitle;
@@ -35,25 +37,20 @@ public class ComentarioFormController {
     public void onSalvar() {
         try {
             if (comentarioTxt.getText().isBlank()) {
-                throw new Exception("Comentário não pode estar vazio");
+                throw new Exception("Deixe um Comentário");
             }
 
             ComentarioDTO dto = new ComentarioDTO();
-            dto.setTexto(comentarioTxt.getText());
+            dto.setMensagem(comentarioTxt.getText());
+            dto.setData(LocalDate.now());
 
             if (ticketId == null) {
                 throw new Exception("Ticket não identificado");
             }
             if ("CLIENTE".equalsIgnoreCase(tipoUtilizador)) {
-                service.post(
-                        "/clientes/" + utilizadorId + "/tickets/" + ticketId + "/comentarios",
-                        dto
-                );
+                service.post("/clientes/" + utilizadorId + "/tickets/" + ticketId + "/comentarios",dto);
             } else {
-                service.post(
-                        "/tecnicos/" + utilizadorId + "/tickets/" + ticketId + "/comentarios",
-                        dto
-                );
+                service.post("/tecnicos/" + utilizadorId + "/tickets/" + ticketId + "/comentarios",dto );
             }
             System.out.println("ID TICKET = " + ticketId);
 
