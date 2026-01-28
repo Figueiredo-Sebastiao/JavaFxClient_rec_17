@@ -1,9 +1,15 @@
 package lp.JavaFxClient.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import lp.JavaFxClient.model.TicketDtoC;
 import lp.JavaFxClient.services.ApiService;
+
+import java.time.LocalDate;
 
 public class TicketClienteFormController {
 
@@ -14,88 +20,79 @@ public class TicketClienteFormController {
     @FXML private ChoiceBox<String> cbPrioridade;
 
     private final ApiService service = new ApiService();
-
     private Long editingTicketId = null;
-    private Long clienteId=2L;
+    private Long clienteId;
+    private Long estado = 1L;
 
-    // =============================
-    // INICIALIZAÇÃO
-    // =============================
     @FXML
     public void initialize() {
         cbCategoria.getItems().addAll("Hardware", "Software", "Rede");
         cbPrioridade.getItems().addAll("Baixa", "Media", "Alta");
+
+        cbCategoria.setValue("Hardware");
+        cbPrioridade.setValue("Baixa");
     }
 
-    // =============================
-    // REGISTAR
-    // =============================
-    public void Registar(Long clienteId) {
+    public void configurarFormularioParaRegisto(Long clienteId) {
         this.clienteId = clienteId;
-        this.editingTicketId = null;
         formTitle.setText("Registar Ticket");
     }
 
-    // =============================
-    // EDITAR
-    // =============================
-    public void Editar(TicketDtoC ticket) {
+    public void configurarFormularioParaEditar(TicketDtoC ticket) {
         this.editingTicketId = ticket.getIdTicket();
         this.clienteId = ticket.getIdCliente();
 
         formTitle.setText("Editar Ticket");
         txtTitulo.setText(ticket.getTitulo());
         txtDescricao.setText(ticket.getDescricao());
-
         cbCategoria.setValue(mapCategoria(ticket.getCategoria()));
         cbPrioridade.setValue(mapPrioridade(ticket.getPrioridade()));
     }
 
-    // =============================
-    // SALVAR (POST / PUT)
-    // =============================
     @FXML
     public void onSalvar() {
         try {
-            if (cbCategoria.getValue() == null || cbPrioridade.getValue() == null)
-                throw new Exception("Selecione categoria e prioridade");
+            if (txtTitulo.getText().isEmpty() || txtDescricao.getText().isEmpty())
+                throw new Exception("Preencha título e descrição");
 
             TicketDtoC dto = new TicketDtoC();
             dto.setTitulo(txtTitulo.getText());
             dto.setDescricao(txtDescricao.getText());
             dto.setCategoria(mapCategoriaId(cbCategoria.getValue()));
             dto.setPrioridade(mapPrioridadeId(cbPrioridade.getValue()));
+            dto.setDataInicio(LocalDate.now());
 
             if (editingTicketId == null) {
-                service.post("/clientes/" + 2 + "/tickets", dto);
+                dto.setEstado(estado);
+                dto.setIdCliente(clienteId);
+                service.post("/clientes/" + clienteId + "/tickets", dto);
+                showInfo("Sucesso", "Ticket registado com sucesso!");
             } else {
-                service.put(
-                        "/clientes/" + 2 + "/tickets/" + editingTicketId,
-                        dto
-                );
+                service.put("/clientes/" + clienteId + "/tickets/" + editingTicketId, dto);
+                showInfo("Sucesso", "Ticket atualizado com sucesso!");
             }
 
-            txtTitulo.getScene().getWindow().hide();
+            Stage stage = (Stage) txtTitulo.getScene().getWindow();
+            stage.close();
 
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            showError("Erro ao salvar ticket: " + e.getMessage());
         }
     }
 
     @FXML
     public void onCancelar() {
-        txtTitulo.getScene().getWindow().hide();
+        Stage stage = (Stage) txtTitulo.getScene().getWindow();
+        stage.close();
     }
 
-    // =============================
-    // MAPEAMENTOS
-    // =============================
     private String mapCategoria(Long id) {
+        if (id == null) return "Hardware";
         return switch (id.intValue()) {
             case 1 -> "Hardware";
             case 2 -> "Software";
             case 3 -> "Rede";
-            default -> null;
+            default -> "Hardware";
         };
     }
 
@@ -104,16 +101,17 @@ public class TicketClienteFormController {
             case "Hardware" -> 1L;
             case "Software" -> 2L;
             case "Rede" -> 3L;
-            default -> null;
+            default -> 1L;
         };
     }
 
     private String mapPrioridade(Long id) {
+        if (id == null) return "Baixa";
         return switch (id.intValue()) {
             case 1 -> "Baixa";
             case 2 -> "Media";
             case 3 -> "Alta";
-            default -> null;
+            default -> "Baixa";
         };
     }
 
@@ -122,7 +120,17 @@ public class TicketClienteFormController {
             case "Baixa" -> 1L;
             case "Media" -> 2L;
             case "Alta" -> 3L;
-            default -> null;
+            default -> 1L;
         };
+    }
+
+    private void showError(String msg) {
+        new Alert(Alert.AlertType.ERROR, msg).showAndWait();
+    }
+
+    private void showInfo(String title, String msg) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, msg);
+        alert.setTitle(title);
+        alert.showAndWait();
     }
 }

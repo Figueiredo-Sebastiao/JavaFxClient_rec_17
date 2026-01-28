@@ -9,28 +9,48 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.LoginController"
+      style="-fx-background-color: #f4f4f4;">
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lp.JavaFxClient.controllers.LoginController">
-   <children>
-      <GridPane layoutX="20.0" layoutY="23.0" prefHeight="356.0" prefWidth="559.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-             <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#onLogin" text="Login" />
-            <Button fx:id="btnRegistar" mnemonicParsing="false" text="Registar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <PasswordField fx:id="senha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="email" GridPane.columnIndex="1" />
-            <Label text="Nome" />
-            <Label text="Senha" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-   </children>
+    <children>
+        <GridPane layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" hgap="15" vgap="15"
+                  style="-fx-background-color: white; -fx-padding: 30; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,2);">
+
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+            </columnConstraints>
+
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+
+            <!-- Labels -->
+            <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold; -fx-text-fill: #333333;" />
+            <Label text="Senha:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold; -fx-text-fill: #333333;" />
+
+            <!-- Campos de input -->
+            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                       promptText="Digite seu email"
+                       style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc; -fx-padding: 8;"/>
+            <PasswordField fx:id="senha" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                           promptText="Digite sua senha"
+                           style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc; -fx-padding: 8;"/>
+
+            <!-- Botões -->
+            <Button fx:id="btnLongin" mnemonicParsing="false" onAction="#onLogin" text="Login"
+                    GridPane.rowIndex="2" GridPane.columnIndex="0"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20;"/>
+            <Button fx:id="btnRegistar" mnemonicParsing="false" onAction="#onRegistar" text="Registar"
+                    GridPane.rowIndex="2" GridPane.columnIndex="1"
+                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20;"/>
+
+        </GridPane>
+    </children>
 </Pane>

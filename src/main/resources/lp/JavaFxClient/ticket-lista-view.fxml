@@ -2,50 +2,39 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="314.0" prefWidth="604.0" spacing="10.0" xmlns="http://javafx.com/javafx/25"
+      prefHeight="350.0" prefWidth="650.0" spacing="15.0"
+      xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="lp.JavaFxClient.controllers.TicketClienteController">
-    <padding>
-        <Insets top="10.0" />
-    </padding>
-    <children>
-        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="547.0" spacing="20.0">
-            <children>
-                <Label text="Courses" textAlignment="CENTER">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Label>
-                <Pane prefHeight="200.0" prefWidth="200.0" />
-                <Button fx:id="btnRegistar" mnemonicParsing="false" onAction="#onRegistar" text="Adicionar"/>
-             </children>
-        </HBox>
-        <TableView fx:id="tableTicketsC" prefHeight="200.0" prefWidth="200.0">
-            <columns>
-                <TableColumn fx:id="n" text="N" />
-                <TableColumn fx:id="idCol" text="N" />
-                <TableColumn fx:id="tituloCol" prefWidth="100.0" text="Titulo" />
-                <TableColumn fx:id="descricaoCol" prefWidth="140.0" text="DeSCRICAO" />
-                <TableColumn fx:id="categoriaCol" prefWidth="75.0" text="CATEGORIA" />
-                <TableColumn fx:id="estadoCol" prefWidth="75.0" text="ESTADO" />
-                <TableColumn fx:id="prioridadeCol" prefWidth="75.0" text="PRIORIDADE" />
-                <TableColumn fx:id="tecnicoCol" prefWidth="75.0" text="TECNICO" />
-                <TableColumn fx:id="dataInicioCol" prefWidth="75.0" text="DATA" />
-                <TableColumn fx:id="dataFim" prefWidth="75.0" text="Terminou" />
-            <TableColumn fx:id="dataFim1" prefWidth="75.0" text="Terminou">
-               <graphic>
-                  <Button mnemonicParsing="false" onAction="#onApagar" text="Apagar" />
-               </graphic>
-            </TableColumn>
-            </columns>
-            <cursor>
-                <Cursor fx:constant="MOVE" />
-            </cursor>
-        </TableView>
-    </children>
+      fx:controller="lp.JavaFxClient.controllers.TicketListController"
+      style="-fx-background-color: #f9f9f9; -fx-padding: 15;">
+
+    <!-- Cabeçalho com título e botão de adicionar -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0" prefHeight="50">
+        <children>
+            <Label text="Tickets" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+            <Pane prefWidth="200.0" />
+            <Button fx:id="btnRegistar" mnemonicParsing="false" onAction="#onSalvar" text="Adicionar"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20;"/>
+        </children>
+    </HBox>
+
+    <!-- Tabela de tickets -->
+    <TableView fx:id="tabelaTicketT" prefHeight="250.0" prefWidth="620.0"
+               style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #cccccc;">
+        <columns>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="tituloCol" text="Título" prefWidth="120"/>
+            <TableColumn fx:id="descricaoCol" text="Descrição" prefWidth="180"/>
+            <TableColumn fx:id="categoriaCol" text="Categoria" prefWidth="100"/>
+            <TableColumn fx:id="estadoCol" text="Estado" prefWidth="100"/>
+            <TableColumn fx:id="prioridadeCol" text="Prioridade" prefWidth="100"/>
+            <TableColumn fx:id="clienteCol" text="Cliente" prefWidth="120"/>
+            <TableColumn fx:id="dataInicioCol" text="Data Início" prefWidth="120"/>
+            <TableColumn fx:id="dataFimCol" text="Data Fim" prefWidth="120"/>
+        </columns>
+    </TableView>
 </VBox>

@@ -1,114 +1,92 @@
 package lp.JavaFxClient.model;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.JsonNode;
 
+import java.time.LocalDate;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TicketDtoT {
 
-        private Long idTicket;
-        private String cliente;
-        private String titulo;
-        private String descricao;
-        private LocalDate dataInicio;
-        private LocalDate dataFim;
-        private String categoria;
-        private String prioridade;
-        private String estado;
-        private List<ComentarioDTO> comentarios;
+    @JsonProperty("idTicket") // ou "id_ticket" conforme o backend
+    private Long idTicket;
+
+    @JsonProperty("titulo")
+    private String titulo;
+
+    @JsonProperty("descricao")
+    private String descricao;
+
+    @JsonProperty("categoria")
+    private String categoria;
+
+    @JsonProperty("prioridade")
+    private String prioridade;
+
+    @JsonProperty("estado")
+    private String estado;
+
+    @JsonProperty("cliente")
+    private String cliente;
+
+    @JsonProperty("dataInicio")
+    private LocalDate dataInicio;
+
+    @JsonProperty("dataFim")
+    private LocalDate dataFim;
 
 
-    public TicketDtoT( String cliente, String titulo, String descricao, LocalDate dataInicio, LocalDate dataFim, String categoria, String prioridade, String estado, List<ComentarioDTO> comentarios) {
-       // this.idTicket = idTicket;
-        this.titulo = titulo;
-        this.cliente = cliente;
-        this.descricao = descricao;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.categoria = categoria;
-        this.prioridade = prioridade;
-        this.estado = estado;
-        this.comentarios = comentarios;
+    public TicketDtoT() {}
+
+    // ---------------- GETTERS ----------------
+
+    public Long getIdTicket() { return idTicket; }
+    public String getCliente() { return cliente; }
+    public String getTitulo() { return titulo; }
+    public String getDescricao() { return descricao; }
+    public String getCategoria() { return categoria; }
+    public String getEstado() { return estado; }
+    public String getPrioridade() { return prioridade; }
+    public LocalDate getDataInicio() { return dataInicio; }
+    public LocalDate getDataFim() { return dataFim; }
+
+    // ---------------- SETTERS NORMAIS ----------------
+
+    public void setIdTicket(Long idTicket) { this.idTicket = idTicket; }
+    public void setCliente(String cliente) { this.cliente = cliente; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public void setDataInicio(LocalDate dataInicio) { this.dataInicio = dataInicio; }
+    public void setDataFim(LocalDate dataFim) { this.dataFim = dataFim; }
+
+    // ---------------- SETTERS INTELIGENTES (FIX FINAL) ----------------
+
+    @JsonSetter("categoria")
+    public void setCategoria(JsonNode node) {
+        if (node.isTextual()) {
+            this.categoria = node.asText();
+        } else if (node.has("categoria")) {
+            this.categoria = node.get("categoria").asText();
+        }
     }
 
-
-
-    public String getCliente() {
-        return cliente;
+    @JsonSetter("estado")
+    public void setEstado(JsonNode node) {
+        if (node.isTextual()) {
+            this.estado = node.asText();
+        } else if (node.has("estado")) {
+            this.estado = node.get("estado").asText();
+        }
     }
 
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public LocalDate getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDate dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public LocalDate getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(LocalDate dataFim) {
-        this.dataFim = dataFim;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getPrioridade() {
-        return prioridade;
-    }
-
-    public void setPrioridade(String prioridade) {
-        this.prioridade = prioridade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public List<ComentarioDTO> getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(List<ComentarioDTO> comentarios) {
-        this.comentarios = comentarios;
-    }
-
-    public Long getIdTicket() {
-        return idTicket;
-    }
-
-    public void setIdTicket(Long idTicket) {
-        this.idTicket = idTicket;
+    @JsonSetter("prioridade")
+    public void setPrioridade(JsonNode node) {
+        if (node.isTextual()) {
+            this.prioridade = node.asText();
+        } else if (node.has("prioridade")) {
+            this.prioridade = node.get("prioridade").asText();
+        }
     }
 }

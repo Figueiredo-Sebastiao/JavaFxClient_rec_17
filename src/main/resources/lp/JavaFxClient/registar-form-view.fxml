@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="12"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.RegistarFormController">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <Label text="Registar Utilizador">
+        <font>
+            <Font size="22"/>
+        </font>
+    </Label>
+
+    <TextField fx:id="txtNome" promptText="Nome completo"/>
+    <TextField fx:id="txtEmail" promptText="Email"/>
+    <PasswordField fx:id="txtSenha" promptText="Senha"/>
+
+    <ChoiceBox fx:id="cbGenero" prefWidth="200"/>
+    <ChoiceBox fx:id="cbTipo" prefWidth="200"/>
+
+    <HBox spacing="10">
+        <Button text="Registar" onAction="#onSalvar"/>
+        <Button text="Cancelar" onAction="#onCancelar"/>
+    </HBox>
+
+</VBox>
