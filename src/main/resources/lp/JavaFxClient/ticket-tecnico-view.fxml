@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="lp.JavaFxClient.controllers.TicketTecnicoController"
-      spacing="15" prefWidth="800" prefHeight="500"
-      style="-fx-background-color: #f9f9f9; -fx-padding: 15;">
+      alignment="TOP_CENTER" spacing="20"
+      prefWidth="800" prefHeight="550"
+      style="
+          -fx-background-color: #f4f4f4;
+          -fx-padding: 25;
+      ">
 
     <!-- Barra de botões -->
-    <HBox spacing="10" alignment="CENTER_LEFT">
+    <HBox alignment="CENTER_LEFT" spacing="15">
         <children>
+            <Label text="Tickets" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <Pane HBox.hgrow="ALWAYS"/>
             <Button text="Atualizar" onAction="#onAtualizar"
-                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
+                    style="-fx-background-color:#4CAF50; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
             <Button text="Adicionar" onAction="#onAdicionar"
-                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
+                    style="-fx-background-color:#2196F3; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
             <Button text="Editar" onAction="#onEditar"
-                    style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
+                    style="-fx-background-color:#FF9800; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
             <Button text="Remover" onAction="#onRemove"
-                    style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
+                    style="-fx-background-color:#f44336; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
             <Button text="Comentários" onAction="#onComentario"
-                    style="-fx-background-color: #9C27B0; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
+                    style="-fx-background-color:#9C27B0; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
         </children>
     </HBox>
 
     <!-- Tabela de tickets -->
-    <TableView fx:id="tabelaTicketT" prefHeight="400" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #cccccc;">
+    <TableView fx:id="tabelaTicketT" prefHeight="400" prefWidth="760"
+               style="
+                   -fx-background-radius: 8;
+                   -fx-border-radius: 8;
+                   -fx-border-color: #cccccc;
+                   -fx-focus-color: #4CAF50;
+                   -fx-faint-focus-color: transparent;
+               ">
         <columns>
             <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
             <TableColumn fx:id="tituloCol" text="Título" prefWidth="150"/>

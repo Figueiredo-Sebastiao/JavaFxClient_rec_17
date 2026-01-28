@@ -1,8 +1,6 @@
 package lp.JavaFxClient.controllers;
 
-
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,38 +15,29 @@ import javafx.stage.Stage;
 import lp.JavaFxClient.model.TicketDtoT;
 import lp.JavaFxClient.services.ApiService;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 
-
 public class TicketTecnicoController {
 
-
-    @FXML
-    private TableView<TicketDtoT> tabelaTicketT;
+    @FXML private TableView<TicketDtoT> tabelaTicketT;
     @FXML private TableColumn<TicketDtoT, Long> idCol;
-    @FXML private TableColumn<TicketDtoT, String> prioridade;
     @FXML private TableColumn<TicketDtoT, String> tituloCol;
     @FXML private TableColumn<TicketDtoT, String> descricaoCol;
     @FXML private TableColumn<TicketDtoT, String> categoriaCol;
     @FXML private TableColumn<TicketDtoT, String> estadoCol;
-    @FXML private TableColumn<TicketDtoT, String> clienteCol;
     @FXML private TableColumn<TicketDtoT, String> prioridadeCol;
+    @FXML private TableColumn<TicketDtoT, String> clienteCol;
     @FXML private TableColumn<TicketDtoT, LocalDate> dataInicioCol;
-    @FXML private TableColumn<TicketDtoT, LocalDate> dataFim;
+    @FXML private TableColumn<TicketDtoT, LocalDate> dataFimCol;
+
     private final ApiService service = new ApiService();
-    private final ObjectMapper mapper = new ObjectMapper();
-    private long id;
+    private long idTecnico;
 
-    // Getters and Setters
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setIdTecnico(long idTecnico) {
+        this.idTecnico = idTecnico;
+        carregarTickets();
     }
 
     @FXML
@@ -61,107 +50,97 @@ public class TicketTecnicoController {
         prioridadeCol.setCellValueFactory(new PropertyValueFactory<>("prioridade"));
         clienteCol.setCellValueFactory(new PropertyValueFactory<>("cliente"));
         dataInicioCol.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
-        dataFim.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
-        System.out.println("IDCol = " + idCol);
-        CaregarTickets();
+        dataFimCol.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
     }
+
     @FXML
-    public void onAtualizar() {
-        CaregarTickets();
-    }
+    public void onAtualizar() { carregarTickets(); }
 
-
-    // Remover Ticket
     @FXML
-    public void onRemove() {
-        TicketDtoT ticketSelec = tabelaTicketT.getSelectionModel().getSelectedItem();
-        if (ticketSelec == null) {
-            showError("Selecione o ticket");
-            return;
-        }
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Remover Ticket " + ticketSelec.getTitulo() + "?",
-                ButtonType.YES, ButtonType.NO);
-        confirm.showAndWait();
-        if (confirm.getResult() != ButtonType.YES) return;
-        if (ticketSelec.getEstado().equals("Pendente")){
-            showError("Ao remover este ticket deixe um comentario explicando porque não conseguiu resolver");
-        }
-        service.delete("/clientes/"+id+"/tickets/"+ ticketSelec.getIdTicket());
-        CaregarTickets();
-    }
+    public void onAdicionar() { abrirFormularioTicket(); }
 
-    // Adicionar Ticket
-    @FXML
-    public void onRegistar() {
-        abrirFormulario(null);
-    }
-
-    //EDITAR
     @FXML
     public void onEditar() {
         TicketDtoT ticket = tabelaTicketT.getSelectionModel().getSelectedItem();
-        if (ticket == null) {
-            showError("Selecione um ticket");
-            return;
-        }
-        abrirFormulario(ticket);
+        if (ticket == null) { showError("Selecione um ticket"); return; }
+        abrirFormularioTicket();
     }
 
+    @FXML
+    public void onRemove() {
+        TicketDtoT ticket = tabelaTicketT.getSelectionModel().getSelectedItem();
+        if (ticket == null) { showError("Selecione um ticket"); return; }
 
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,"Remover Ticket " + ticket.getTitulo() + "?", ButtonType.YES, ButtonType.NO);
+        confirm.showAndWait();
+        if (confirm.getResult() != ButtonType.YES) return;
 
+        service.delete("/tecnicos/" + idTecnico + "/tickets/" + ticket.getIdTicket());
+        carregarTickets();
+    }
 
-    /// /////////////////////////METODOS//////////////////////////////////////////
-    private void CaregarTickets() {
+    public void onComentario() { abrirCaixaComentario(); }
+
+    private void carregarTickets() {
         try {
-            List<TicketDtoC> tickets = service.get("/clientes/" + id + "/tickets",new TypeReference<List<TicketDtoC>>() {});
+            List<TicketDtoT> tickets = service.get("/tecnicos/" + idTecnico + "/tickets",
+                    new TypeReference<List<TicketDtoT>>() {});
             tabelaTicketT.getItems().setAll(tickets);
-
         } catch (Exception e) {
             showError("Erro ao carregar tickets: " + e.getMessage());
         }
     }
 
-    // Metodo Formulario
-    private void abrirFormulario(TicketDtoC ticket) {
+    private void abrirFormularioTicket() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/lp/JavaFxClient/ticket-form-view.fxml")
-            );
-
+            URL fxmlURL = getClass().getResource("/lp/JavaFxClient/ticket-lista-view.fxml");
+            FXMLLoader loader = new FXMLLoader(fxmlURL);
             Parent root = loader.load();
-            TicketClienteFormController controller = loader.getController();
-
-            if (ticket == null) {
-                controller.Registar(id); // id = clienteId
-            } else {
-                controller.Editar(ticket);
-            }
+            TicketListController controller = loader.getController();
+            controller.setTecnicoID(idTecnico);
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
-            stage.setTitle(ticket == null ? "Registar Ticket" : "Editar Ticket");
+            stage.setTitle("Tickets");
+            stage.setWidth(800);
+            stage.setHeight(600);
+            stage.centerOnScreen();
             stage.showAndWait();
 
-            CaregarTickets();
-
+            carregarTickets();
         } catch (Exception e) {
-            showError("Erro ao abrir formulário: " + e.getMessage());
+            showError("Erro ao abrir formulário: \n" + e.getMessage());
         }
     }
 
-    // TRATAMENTO DE ERRO
+    public void abrirCaixaComentario() {
+        try {
+            TicketDtoT ticketSelecionado = tabelaTicketT.getSelectionModel().getSelectedItem();
+            if (ticketSelecionado == null) { showError("Selecione um ticket"); return; }
+            if (idTecnico <= 0) { showError("Técnico não identificado"); return; }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/comentario-view.fxml"));
+            Parent root = loader.load();
+            ComentarioController controller = loader.getController();
+
+            controller.configurar(ticketSelecionado.getIdTicket(), idTecnico, "TECNICO");
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setTitle("Comentários");
+            stage.setWidth(800);
+            stage.setHeight(600);
+            stage.centerOnScreen();
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            showError("Erro ao abrir comentários: " + e.getMessage());
+        }
+    }
+
     private void showError(String msg) {
-        Alert a = new Alert(Alert.AlertType.ERROR, msg);
-        a.showAndWait();
+        new Alert(Alert.AlertType.ERROR, msg).showAndWait();
     }
-
-    // TRATAMENTO DE INFORMSCSO
-    private void showInfo(String title, String msg) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, msg);
-        a.setTitle(title);
-        a.showAndWait();
-    }
-
 }

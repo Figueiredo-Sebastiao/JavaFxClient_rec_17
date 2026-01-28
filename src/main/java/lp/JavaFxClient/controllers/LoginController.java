@@ -1,7 +1,5 @@
 package lp.JavaFxClient.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,12 +12,10 @@ import lp.JavaFxClient.model.UtilizadorDTO;
 import lp.JavaFxClient.services.ApiService;
 
 import java.io.IOException;
-import java.util.List;
 
 public class LoginController {
 
     private final ApiService service = new ApiService();
-    private final ObjectMapper mapper = new ObjectMapper();
 
     @FXML private TextField email;
     @FXML private PasswordField senha;
@@ -35,68 +31,108 @@ public class LoginController {
                 return;
             }
 
-            // Buscar todos os utilizadores
-            List<UtilizadorDTO> utilizadores =
-                    service.get("/utilizadores", new TypeReference<List<UtilizadorDTO>>() {});
+            UtilizadorDTO dto = new UtilizadorDTO();
+            dto.setEmail(user);
+            dto.setSenha(pass);
 
-            for (UtilizadorDTO u : utilizadores) {
-                if (u.getEmail().equals(user) && u.getSenha().equals(pass)) {
+            UtilizadorDTO u = service.post("/utilizador/login", dto, UtilizadorDTO.class);
 
-                    if ("CLIENTE".equalsIgnoreCase(u.getTipo())) {
-                        abrirViewCliente(u.getId());
-                        return;
-                    }
-
-                    if ("TECNICO".equalsIgnoreCase(u.getTipo())) {
-                        abrirViewTecnico(u.getId());
-                        return;
-                    }
-                }
+            if (u.getTipo() == null) {
+                throw new Exception("Tipo de utilizador inválido");
             }
 
-            showError("Credenciais inválidas");
+            String tipo = u.getTipo().toUpperCase();
+
+            switch (tipo) {
+                case "CLIENTE" -> AbrirViewCliente(u.getId());
+                case "TECNICO" -> AbrirViewTecnico(u.getId());
+                default -> showError("Tipo de utilizador desconhecido: " + u.getTipo());
+            }
 
         } catch (Exception e) {
-            showError("Erro no login: " + e.getMessage());
+            showError("Erro no login:\n" + e.getMessage());
         }
     }
 
-    private void abrirViewCliente(Long id) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/ticket-cliente-view.fxml"));
-        Parent root = loader.load();
-
-        TicketClienteController controller = loader.getController();
-        controller.setId(id);
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Cliente Dashboard");
-        stage.show();
-
-        // Fecha a janela de login
-        email.getScene().getWindow().hide();
+    @FXML
+    public void onRegistar() {
+        try {
+            abrirFXML("/lp/JavaFxClient/SelecionarRegistarView.fxml", "Registar", 800, 600);
+        } catch (Exception e) {
+            showError("Erro ao abrir Registo:\n" + e.getMessage());
+        }
     }
 
-    private void abrirViewTecnico(Long id) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/ticket-tecnico-view.fxml"));
-        Parent root = loader.load();
+    private void AbrirViewCliente(Long id) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/lp/JavaFxClient/ticket-cliente-view.fxml")
+            );
+            Parent root = loader.load();
+            TicketClienteController controller = loader.getController();
+            controller.setIdCliente(id);
 
-        TicketTecnicoController controller = loader.getController();
-        controller.setId(id);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Cliente Dashboard");
+            stage.show();
+            email.getScene().getWindow().hide();
+
+
+            fecharLogin();
+        } catch (IOException e) {
+            showError("Erro ao abrir o Dashboard do Cliente.\nVerifique se o FXML existe em '/lp/JavaFxClient/ticket-cliente-view.fxml'\n" + e.getMessage());
+        }
+    }
+
+    private void AbrirViewTecnico(Long id) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/ticket-tecnico-view.fxml"));
+            Parent root = loader.load();
+
+            lp.JavaFxClient.controllers.TicketTecnicoController controller = loader.getController();
+            controller.setIdTecnico(id);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Técnico Dashboard");
+            stage.setWidth(800);
+            stage.setHeight(600);
+            stage.centerOnScreen();
+            stage.show();
+
+            fecharLogin();
+        } catch (IOException e) {
+            showError("Erro ao abrir o Dashboard do Técnico.\nVerifique se o FXML existe em '/lp/JavaFxClient/ticket-tecnico-view.fxml'\n" + e.getMessage());
+        }
+    }
+
+    // Método genérico para abrir qualquer FXML
+    private void abrirFXML(String caminho, String titulo, double width, double height) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+        Parent root = loader.load();
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Técnico Dashboard");
+        stage.setTitle(titulo);
+        stage.setWidth(width);
+        stage.setHeight(height);
+        stage.centerOnScreen();
         stage.show();
 
-        // Fecha a janela de login
-        email.getScene().getWindow().hide();
+        fecharLogin();
+    }
+
+    // Fecha a janela de login atual
+    private void fecharLogin() {
+        if (email.getScene() != null && email.getScene().getWindow() != null) {
+            email.getScene().getWindow().hide();
+        }
     }
 
     private void showError(String msg) {
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setHeaderText("Login inválido");
-        a.setContentText(msg);
+        Alert a = new Alert(Alert.AlertType.ERROR, msg);
+        a.setHeaderText("Erro");
         a.showAndWait();
     }
 }

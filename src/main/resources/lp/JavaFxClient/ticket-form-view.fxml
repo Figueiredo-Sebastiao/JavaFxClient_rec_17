@@ -9,41 +9,86 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="389.0" spacing="10.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lp.JavaFxClient.controllers.TicketClienteFormController">
-    <padding>
-        <Insets top="10.0" />
-    </padding>
-    <children>
-        <Label fx:id="formTitle" text="Create Student">
-            <font>
+<VBox alignment="CENTER" spacing="20"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.TicketClienteFormController"
+      prefWidth="450" prefHeight="500"
+      style="
+          -fx-background-color: #f4f4f4;
+          -fx-padding: 25;
+          -fx-border-radius: 10;
+          -fx-background-radius: 10;
+          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,2);
+      ">
 
-                <Font size="22.0" />
-            </font>
-        </Label>
+    <!-- Título do formulário -->
+    <Label fx:id="formTitle" text="Criar Ticket"
+           style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
 
-        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-            <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" text="Titulo" />
-                <TextField fx:id="txtTitulo" />
-            </children>
-        </HBox>
-        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-            <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" text="Descricao" />
-                <TextField fx:id="txtDescricao" />
-            </children>
-        </HBox>
-        <HBox alignment="CENTER" spacing="10.0">
-            <Label text="Prioridade" />
-            <ChoiceBox fx:id="cbPrioridade" prefWidth="150.0"/>
-        </HBox>
+    <!-- Título -->
+    <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="380">
+        <Label text="Título:" style="-fx-font-weight: bold; -fx-text-fill: #555555;" prefWidth="100"/>
+        <TextField fx:id="txtTitulo" promptText="Digite o título"
+                   style="
+                       -fx-background-radius: 6;
+                       -fx-border-radius: 6;
+                       -fx-border-color: #cccccc;
+                       -fx-padding: 6;
+                   "/>
+    </HBox>
 
-        <HBox alignment="CENTER" spacing="10.0">
-            <Label text="Categoria" />
-            <ChoiceBox fx:id="cbCategoria" prefWidth="150.0"/>
-        </HBox>
+    <!-- Descrição -->
+    <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="380">
+        <Label text="Descrição:" style="-fx-font-weight: bold; -fx-text-fill: #555555;" prefWidth="100"/>
+        <TextField fx:id="txtDescricao" promptText="Digite a descrição"
+                   style="
+                       -fx-background-radius: 6;
+                       -fx-border-radius: 6;
+                       -fx-border-color: #cccccc;
+                       -fx-padding: 6;
+                   "/>
+    </HBox>
 
-        <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#onSalvar" text="Salvar" />
-          <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#onCancelar" text="Cancelar" />
-    </children>
+    <!-- Prioridade -->
+    <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="380">
+        <Label text="Prioridade:" style="-fx-font-weight: bold; -fx-text-fill: #555555;" prefWidth="100"/>
+        <ChoiceBox fx:id="cbPrioridade" prefWidth="200"
+                   style="
+                       -fx-background-radius: 6;
+                       -fx-border-radius: 6;
+                       -fx-border-color: #cccccc;
+                   "/>
+    </HBox>
+
+    <!-- Categoria -->
+    <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="380">
+        <Label text="Categoria:" style="-fx-font-weight: bold; -fx-text-fill: #555555;" prefWidth="100"/>
+        <ChoiceBox fx:id="cbCategoria" prefWidth="200"
+                   style="
+                       -fx-background-radius: 6;
+                       -fx-border-radius: 6;
+                       -fx-border-color: #cccccc;
+                   "/>
+    </HBox>
+
+    <!-- Botões -->
+    <HBox alignment="CENTER" spacing="20" prefWidth="380">
+        <Button fx:id="btnSalvar" text="Salvar" mnemonicParsing="false" onAction="#onSalvar"
+                style="
+                    -fx-background-color: #4CAF50;
+                    -fx-text-fill: white;
+                    -fx-font-size: 15px;
+                    -fx-background-radius: 6;
+                    -fx-padding: 8 25;
+                "/>
+        <Button fx:id="btnCancelar" text="Cancelar" mnemonicParsing="false" onAction="#onCancelar"
+                style="
+                    -fx-background-color: #f44336;
+                    -fx-text-fill: white;
+                    -fx-font-size: 15px;
+                    -fx-background-radius: 6;
+                    -fx-padding: 8 25;
+                "/>
+    </HBox>
 </VBox>

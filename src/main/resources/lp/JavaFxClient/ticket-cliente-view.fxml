@@ -1,57 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="350.0" prefWidth="700.0" spacing="15.0"
+<Pane prefWidth="1000" prefHeight="650"
       xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="lp.JavaFxClient.controllers.TicketClienteController"
-      style="-fx-background-color: #f9f9f9; -fx-padding: 15;">
+      style="-fx-background-color: #f4f4f4;">
 
     <children>
-        <!-- Cabeçalho com título e botões -->
-        <HBox alignment="CENTER_LEFT" spacing="15.0">
-            <children>
-                <Label text="Tickets" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
-                <Pane prefWidth="200.0" />
-                <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#onAtualizar" text="Atualizar"
-                        style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
-                <Button fx:id="btnApagar" mnemonicParsing="false" onAction="#onApagar" text="Apagar"
-                        style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
-                <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#onEditar" text="Editar"
-                        style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
-                <Button fx:id="btnRegistar" mnemonicParsing="false" onAction="#onRegistar" text="Registar"
-                        style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
-                <Button fx:id="btnComentario" mnemonicParsing="false" onAction="#onComentario" text="Comentários"
-                        style="-fx-background-color: #9C27B0; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15;"/>
-            </children>
-        </HBox>
 
-        <!-- Tabela de Tickets -->
-        <TableView fx:id="tableTicketsC" prefHeight="250.0" prefWidth="680.0"
-                   style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #cccccc;">
-            <columns>
-                <TableColumn fx:id="n" text="N" prefWidth="30"/>
-                <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="tituloCol" text="Título" prefWidth="120"/>
-                <TableColumn fx:id="descricaoCol" text="Descrição" prefWidth="180"/>
-                <TableColumn fx:id="categoriaCol" text="Categoria" prefWidth="80"/>
-                <TableColumn fx:id="estadoCol" text="Estado" prefWidth="80"/>
-                <TableColumn fx:id="prioridadeCol" text="Prioridade" prefWidth="80"/>
-                <TableColumn fx:id="tecnicoCol" text="Técnico" prefWidth="100"/>
-                <TableColumn fx:id="dataInicioCol" text="Data Início" prefWidth="100"/>
-                <TableColumn fx:id="dataFim" text="Terminou" prefWidth="100"/>
-                <TableColumn fx:id="dataFim1" text="Apagar" prefWidth="80">
-                    <graphic>
-                        <Button mnemonicParsing="false" onAction="#onApagar" text="Apagar"
-                                style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 4 10;"/>
-                    </graphic>
-                </TableColumn>
-            </columns>
-        </TableView>
+        <!-- Cartão central -->
+        <VBox spacing="15"
+              layoutX="50" layoutY="40"
+              prefWidth="900" prefHeight="570"
+              style="
+                -fx-background-color: white;
+                -fx-padding: 20;
+                -fx-background-radius: 12;
+                -fx-border-radius: 12;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);
+              ">
+
+            <!-- Barra de botões -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+
+                <Button text="Atualizar" onAction="#onAtualizar"
+                        style="
+                            -fx-background-color:#4CAF50;
+                            -fx-text-fill:white;
+                            -fx-font-size: 14px;
+                            -fx-background-radius: 6;
+                        "/>
+
+                <Button text="Registar" onAction="#onRegistar"
+                        style="
+                            -fx-background-color:#2196F3;
+                            -fx-text-fill:white;
+                            -fx-font-size: 14px;
+                            -fx-background-radius: 6;
+                        "/>
+
+                <Button text="Editar" onAction="#onEditar"
+                        style="
+                            -fx-background-color:#FF9800;
+                            -fx-text-fill:white;
+                            -fx-font-size: 14px;
+                            -fx-background-radius: 6;
+                        "/>
+
+                <Button text="Apagar" onAction="#onApagar"
+                        style="
+                            -fx-background-color:#f44336;
+                            -fx-text-fill:white;
+                            -fx-font-size: 14px;
+                            -fx-background-radius: 6;
+                        "/>
+
+                <Button text="Comentários" onAction="#onComentario"
+                        style="
+                            -fx-background-color:#9C27B0;
+                            -fx-text-fill:white;
+                            -fx-font-size: 14px;
+                            -fx-background-radius: 6;
+                        "/>
+            </HBox>
+
+            <!-- Tabela -->
+            <TableView fx:id="tableTicketsC"
+                       prefHeight="480"
+                       style="-fx-border-radius: 8; -fx-background-radius: 8;">
+
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="tituloCol" text="Título" prefWidth="140"/>
+                    <TableColumn fx:id="descricaoCol" text="Descrição" prefWidth="180"/>
+                    <TableColumn fx:id="categoriaCol" text="Categoria" prefWidth="120"/>
+                    <TableColumn fx:id="estadoCol" text="Estado" prefWidth="90"/>
+                    <TableColumn fx:id="prioridadeCol" text="Prioridade" prefWidth="100"/>
+                    <TableColumn fx:id="tecnicoCol" text="Técnico" prefWidth="120"/>
+                    <TableColumn fx:id="dataInicioCol" text="Início" prefWidth="90"/>
+                    <TableColumn fx:id="dataFimCol" text="Fim" prefWidth="90"/>
+                </columns>
+
+            </TableView>
+
+        </VBox>
+
     </children>
-</VBox>
+</Pane>

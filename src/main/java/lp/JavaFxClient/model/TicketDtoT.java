@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TicketDtoT {
 
-    @JsonProperty("idTicket") // ou "id_ticket" conforme o backend
     private Long idTicket;
 
     @JsonProperty("titulo")
@@ -37,11 +36,9 @@ public class TicketDtoT {
     @JsonProperty("dataFim")
     private LocalDate dataFim;
 
-
     public TicketDtoT() {}
 
-    // ---------------- GETTERS ----------------
-
+    // GETTERS
     public Long getIdTicket() { return idTicket; }
     public String getCliente() { return cliente; }
     public String getTitulo() { return titulo; }
@@ -52,41 +49,34 @@ public class TicketDtoT {
     public LocalDate getDataInicio() { return dataInicio; }
     public LocalDate getDataFim() { return dataFim; }
 
-    // ---------------- SETTERS NORMAIS ----------------
-
-    public void setIdTicket(Long idTicket) { this.idTicket = idTicket; }
+    // SETTERS
+    public void setIdTicket(Long idTicket) {this.idTicket = idTicket;}
     public void setCliente(String cliente) { this.cliente = cliente; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public void setDataInicio(LocalDate dataInicio) { this.dataInicio = dataInicio; }
     public void setDataFim(LocalDate dataFim) { this.dataFim = dataFim; }
 
-    // ---------------- SETTERS INTELIGENTES (FIX FINAL) ----------------
-
+    // SETTERS INTELIGENTES
     @JsonSetter("categoria")
     public void setCategoria(JsonNode node) {
-        if (node.isTextual()) {
-            this.categoria = node.asText();
-        } else if (node.has("categoria")) {
-            this.categoria = node.get("categoria").asText();
+        if (node != null) {
+            if (node.isTextual()) this.categoria = node.asText();
+            else if (node.has("categoria")) this.categoria = node.get("categoria").asText();
         }
     }
-
     @JsonSetter("estado")
     public void setEstado(JsonNode node) {
-        if (node.isTextual()) {
-            this.estado = node.asText();
-        } else if (node.has("estado")) {
-            this.estado = node.get("estado").asText();
+        if (node != null) {
+            if (node.isTextual()) this.estado = node.asText();
+            else if (node.has("estado")) this.estado = node.get("estado").asText();
         }
     }
-
     @JsonSetter("prioridade")
     public void setPrioridade(JsonNode node) {
-        if (node.isTextual()) {
-            this.prioridade = node.asText();
-        } else if (node.has("prioridade")) {
-            this.prioridade = node.get("prioridade").asText();
+        if (node != null) {
+            if (node.isTextual()) this.prioridade = node.asText();
+            else if (node.has("prioridade")) this.prioridade = node.get("prioridade").asText();
         }
     }
 }

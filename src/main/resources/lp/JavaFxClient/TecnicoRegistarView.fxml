@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane prefWidth="600" prefHeight="450"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.TecnicoRegistarController"
+      style="-fx-background-color: #f4f4f4;">
+
+    <children>
+
+        <!-- Cartão central -->
+        <VBox alignment="CENTER" spacing="15"
+              layoutX="150" layoutY="60"
+              prefWidth="300"
+              style="
+                -fx-background-color: white;
+                -fx-padding: 30;
+                -fx-background-radius: 12;
+                -fx-border-radius: 12;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);
+              ">
+
+            <!-- Título -->
+            <Label text="Registar Técnico"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+            <!-- Campos -->
+            <TextField fx:id="txtNome"
+                       promptText="Nome"
+                       prefWidth="240"
+                       style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 8;"/>
+
+            <TextField fx:id="txtEmail"
+                       promptText="Email"
+                       prefWidth="240"
+                       style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 8;"/>
+
+            <TextField fx:id="txtSenha"
+                       promptText="Senha"
+                       prefWidth="240"
+                       style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 8;"/>
+
+            <TextField fx:id="txtEspecialidade"
+                       promptText="Especialidade"
+                       prefWidth="240"
+                       style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 8;"/>
+
+            <!-- Botões -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="Registar"
+                        onAction="#onSalvar"
+                        prefWidth="110"
+                        style="
+                            -fx-background-color: #2196F3;
+                            -fx-text-fill: white;
+                            -fx-font-size: 14px;
+                            -fx-background-radius: 6;
+                        "/>
+
+                <Button text="Cancelar"
+                        onAction="#onCancelar"
+                        prefWidth="110"
+                        style="
+                            -fx-background-color: #f44336;
+                            -fx-text-fill: white;
+                            -fx-font-size: 14px;
+                            -fx-background-radius: 6;
+                        "/>
+            </HBox>
+
+        </VBox>
+
+    </children>
+</Pane>

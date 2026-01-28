@@ -1,5 +1,7 @@
 package lp.JavaFxClient.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class TicketDtoC {
 
     public TicketDtoC() {}
 
+    // GETTERS & SETTERS
     public Long getIdTicket() { return idTicket; }
     public void setIdTicket(Long idTicket) { this.idTicket = idTicket; }
     public String getTitulo() { return titulo; }

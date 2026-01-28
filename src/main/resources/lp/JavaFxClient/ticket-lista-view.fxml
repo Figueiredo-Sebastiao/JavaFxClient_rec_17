@@ -5,36 +5,53 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="350.0" prefWidth="650.0" spacing="15.0"
+<VBox alignment="TOP_CENTER" spacing="20"
       xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="lp.JavaFxClient.controllers.TicketListController"
-      style="-fx-background-color: #f9f9f9; -fx-padding: 15;">
+      prefHeight="500" prefWidth="800"
+      style="
+          -fx-background-color: #f4f4f4;
+          -fx-padding: 25;
+      ">
 
     <!-- Cabeçalho com título e botão de adicionar -->
-    <HBox alignment="CENTER_LEFT" spacing="15.0" prefHeight="50">
+    <HBox alignment="CENTER_LEFT" spacing="15">
         <children>
-            <Label text="Tickets" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
-            <Pane prefWidth="200.0" />
-            <Button fx:id="btnRegistar" mnemonicParsing="false" onAction="#onSalvar" text="Adicionar"
-                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20;"/>
+            <Label text="Tickets"
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnRegistar" text="Adicionar" mnemonicParsing="false" onAction="#onSalvar"
+                    style="
+                        -fx-background-color: #4CAF50;
+                        -fx-text-fill: white;
+                        -fx-background-radius: 6;
+                        -fx-padding: 8 25;
+                        -fx-font-size: 15px;
+                    "/>
         </children>
     </HBox>
 
     <!-- Tabela de tickets -->
-    <TableView fx:id="tabelaTicketT" prefHeight="250.0" prefWidth="620.0"
-               style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #cccccc;">
+    <TableView fx:id="tabelaTicketT" prefHeight="350" prefWidth="760"
+               style="
+                   -fx-background-radius: 8;
+                   -fx-border-radius: 8;
+                   -fx-border-color: #cccccc;
+                   -fx-focus-color: #4CAF50;
+                   -fx-faint-focus-color: transparent;
+               ">
         <columns>
             <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
-            <TableColumn fx:id="tituloCol" text="Título" prefWidth="120"/>
+            <TableColumn fx:id="tituloCol" text="Título" prefWidth="130"/>
             <TableColumn fx:id="descricaoCol" text="Descrição" prefWidth="180"/>
             <TableColumn fx:id="categoriaCol" text="Categoria" prefWidth="100"/>
-            <TableColumn fx:id="estadoCol" text="Estado" prefWidth="100"/>
-            <TableColumn fx:id="prioridadeCol" text="Prioridade" prefWidth="100"/>
+            <TableColumn fx:id="estadoCol" text="Estado" prefWidth="80"/>
+            <TableColumn fx:id="prioridadeCol" text="Prioridade" prefWidth="90"/>
             <TableColumn fx:id="clienteCol" text="Cliente" prefWidth="120"/>
-            <TableColumn fx:id="dataInicioCol" text="Data Início" prefWidth="120"/>
-            <TableColumn fx:id="dataFimCol" text="Data Fim" prefWidth="120"/>
+            <TableColumn fx:id="dataInicioCol" text="Data Início" prefWidth="110"/>
+            <TableColumn fx:id="dataFimCol" text="Data Fim" prefWidth="110"/>
         </columns>
     </TableView>
+
 </VBox>

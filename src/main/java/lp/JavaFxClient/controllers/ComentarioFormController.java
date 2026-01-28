@@ -2,31 +2,71 @@ package lp.JavaFxClient.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import lp.JavaFxClient.model.UtilizadorDTO;
+import lp.JavaFxClient.model.ComentarioDTO;
 import lp.JavaFxClient.services.ApiService;
 
-public class RegistarFormController {
+public class ComentarioFormController {
 
-    @FXML private TextField nomeField;
-    @FXML private TextField generoField;
-    @FXML private TextField emailField;
+    @FXML private Label formTitle;
+    @FXML private TextField comentarioTxt;
 
     private final ApiService service = new ApiService();
 
+    private Long ticketId;
+    private Long utilizadorId;
+    private String tipoUtilizador; // CLIENTE ou TECNICO
+
+    // =============================
+    // SETUP
+    // =============================
+    public void configurar(Long ticketId, Long utilizadorId, String tipoUtilizador) {
+        this.ticketId = ticketId;
+        this.utilizadorId = utilizadorId;
+        this.tipoUtilizador = tipoUtilizador;
+        formTitle.setText("Novo Comentário");
+    }
+
+    // =============================
+    // SALVAR
+    // =============================
     @FXML
-    public void onRegistar() {
+    public void onSalvar() {
         try {
-            UtilizadorDTO dto = new UtilizadorDTO();
-            dto.setNome(nomeField.getText());
-            dto.setGenero(generoField.getText());
-            dto.setEmail(emailField.getText());
+            if (comentarioTxt.getText().isBlank()) {
+                throw new Exception("Comentário não pode estar vazio");
+            }
 
-            service.post("/utilizadores/registar", dto);
+            ComentarioDTO dto = new ComentarioDTO();
+            dto.setTexto(comentarioTxt.getText());
 
-            new Alert(Alert.AlertType.INFORMATION, "Registo efetuado com sucesso").showAndWait();
+            if (ticketId == null) {
+                throw new Exception("Ticket não identificado");
+            }
+            if ("CLIENTE".equalsIgnoreCase(tipoUtilizador)) {
+                service.post(
+                        "/clientes/" + utilizadorId + "/tickets/" + ticketId + "/comentarios",
+                        dto
+                );
+            } else {
+                service.post(
+                        "/tecnicos/" + utilizadorId + "/tickets/" + ticketId + "/comentarios",
+                        dto
+                );
+            }
+            System.out.println("ID TICKET = " + ticketId);
+
+
+            comentarioTxt.getScene().getWindow().hide();
+
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Erro no registo: " + e.getMessage()).showAndWait();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
         }
+    }
+
+    @FXML
+    public void onCancelar() {
+        comentarioTxt.getScene().getWindow().hide();
     }
 }
