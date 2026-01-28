@@ -104,18 +104,28 @@ public class TicketClienteController implements Initializable {
     private void abrirFormulario(TicketDtoC ticket) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/lp/JavaFxClient/ticket-form-view.fxml")
-            );
-            Parent root = loader.load();
+                    getClass().getResource("/lp/JavaFxClient/ticket-form-view.fxml"));
+
+            Parent root = loader.load();  // 🔹 primeiro o load
+            TicketClienteFormController controller = loader.getController(); // depois getController()
+            if (ticket == null) {
+                controller.Registo(idCliente);
+            } else {
+                controller.Editar(ticket); // 🔹 agora passa o ticket corretamente
+            }
+
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            carregarTickets();
+
+            carregarTickets(); // 🔹 atualiza a tabela após fechar o formulário
         } catch (Exception e) {
             erro(e.getMessage());
         }
     }
+
+
 
     private void erro(String m) {
         new Alert(Alert.AlertType.ERROR, m).showAndWait();

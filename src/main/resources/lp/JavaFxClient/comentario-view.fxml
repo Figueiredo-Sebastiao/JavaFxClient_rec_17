@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="15" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400" prefWidth="650"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.ComentarioController"
+      style="-fx-background-color: #f9f9f9; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+
+    <!-- Cabeçalho com título e botões -->
+    <HBox alignment="CENTER_LEFT" spacing="20" prefHeight="50" prefWidth="600">
+        <Label text="Comentários" textAlignment="CENTER"
+               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnApagar" mnemonicParsing="false" onAction="#onApagar" text="Apagar"
+                style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 18;"/>
+        <Button fx:id="btnComentar" mnemonicParsing="false" onAction="#onRegistar" text="Comentar"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 18;"/>
+    </HBox>
+
+    <!-- Tabela de comentários -->
+    <TableView fx:id="tableComentario" prefHeight="280" prefWidth="600"
+               style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #cccccc;">
+        <columns>
+            <TableColumn fx:id="tipo" text="Tipo" prefWidth="120"/>
+            <TableColumn fx:id="comentarioCol" text="Comentário" prefWidth="300"/>
+            <TableColumn fx:id="dataCol" text="Data" prefWidth="150"/>
+        </columns>
+    </TableView>
+
+</VBox>

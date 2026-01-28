@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.TicketTecnicoController"
+      alignment="TOP_CENTER" spacing="20"
+      prefWidth="800" prefHeight="550"
+      style="
+          -fx-background-color: #f4f4f4;
+          -fx-padding: 25;
+      ">
+
+    <!-- Barra de botões -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <children>
+            <Label text="Tickets" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Atualizar" onAction="#onAtualizar"
+                    style="-fx-background-color:#4CAF50; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
+            <Button text="Adicionar" onAction="#onAdicionar"
+                    style="-fx-background-color:#2196F3; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
+            <Button text="Editar" onAction="#onEditar"
+                    style="-fx-background-color:#FF9800; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
+            <Button text="Remover" onAction="#onRemove"
+                    style="-fx-background-color:#f44336; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
+            <Button text="Comentários" onAction="#onComentario"
+                    style="-fx-background-color:#9C27B0; -fx-text-fill:white; -fx-background-radius:6; -fx-padding:6 18;"/>
+        </children>
+    </HBox>
+
+    <!-- Tabela de tickets -->
+    <TableView fx:id="tabelaTicketT" prefHeight="400" prefWidth="760"
+               style="
+                   -fx-background-radius: 8;
+                   -fx-border-radius: 8;
+                   -fx-border-color: #cccccc;
+                   -fx-focus-color: #4CAF50;
+                   -fx-faint-focus-color: transparent;
+               ">
+        <columns>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="tituloCol" text="Título" prefWidth="150"/>
+            <TableColumn fx:id="descricaoCol" text="Descrição" prefWidth="200"/>
+            <TableColumn fx:id="categoriaCol" text="Categoria" prefWidth="100"/>
+            <TableColumn fx:id="estadoCol" text="Estado" prefWidth="80"/>
+            <TableColumn fx:id="prioridadeCol" text="Prioridade" prefWidth="80"/>
+            <TableColumn fx:id="clienteCol" text="Cliente" prefWidth="100"/>
+            <TableColumn fx:id="dataInicioCol" text="Data Início" prefWidth="100"/>
+            <TableColumn fx:id="dataFimCol" text="Data Fim" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox>

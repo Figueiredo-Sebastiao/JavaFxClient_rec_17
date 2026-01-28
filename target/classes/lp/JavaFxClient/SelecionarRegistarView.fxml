@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefWidth="600" prefHeight="400"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.SelecionarRegistarController"
+      style="-fx-background-color: #f4f4f4;">
+
+    <children>
+
+        <!-- Cartão central -->
+        <VBox alignment="CENTER" spacing="25"
+              layoutX="150" layoutY="90"
+              prefWidth="300" prefHeight="220"
+              style="
+                -fx-background-color: white;
+                -fx-padding: 30;
+                -fx-background-radius: 12;
+                -fx-border-radius: 12;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);
+              ">
+
+            <!-- Título -->
+            <Label text="Registar Utilizador"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+            <!-- Botão Cliente -->
+            <Button fx:id="btnCliente"
+                    text="Registar Cliente"
+                    onAction="#onRegistarCliente"
+                    prefWidth="220"
+                    style="
+                        -fx-background-color: #4CAF50;
+                        -fx-text-fill: white;
+                        -fx-font-size: 15px;
+                        -fx-background-radius: 8;
+                        -fx-padding: 10 20;
+                    "/>
+
+            <!-- Botão Técnico -->
+            <Button fx:id="btnTecnico"
+                    text="Registar Técnico"
+                    onAction="#onRegistarTecnico"
+                    prefWidth="220"
+                    style="
+                        -fx-background-color: #2196F3;
+                        -fx-text-fill: white;
+                        -fx-font-size: 15px;
+                        -fx-background-radius: 8;
+                        -fx-padding: 10 20;
+                    "/>
+
+        </VBox>
+
+    </children>
+</Pane>

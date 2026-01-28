@@ -33,12 +33,12 @@ public class TicketClienteFormController {
         cbPrioridade.setValue("Baixa");
     }
 
-    public void configurarFormularioParaRegisto(Long clienteId) {
+    public void Registo(Long clienteId) {
         this.clienteId = clienteId;
         formTitle.setText("Registar Ticket");
     }
 
-    public void configurarFormularioParaEditar(TicketDtoC ticket) {
+    public void Editar(TicketDtoC ticket) {
         this.editingTicketId = ticket.getIdTicket();
         this.clienteId = ticket.getIdCliente();
 
@@ -60,14 +60,19 @@ public class TicketClienteFormController {
             dto.setDescricao(txtDescricao.getText());
             dto.setCategoria(mapCategoriaId(cbCategoria.getValue()));
             dto.setPrioridade(mapPrioridadeId(cbPrioridade.getValue()));
-            dto.setDataInicio(LocalDate.now());
+            dto.setDataInicio(LocalDate.now()); // Mantém a data de início
 
+            // 🔹 Se for edição, envia o ID do ticket
             if (editingTicketId == null) {
                 dto.setEstado(estado);
                 dto.setIdCliente(clienteId);
                 service.post("/clientes/" + clienteId + "/tickets", dto);
                 showInfo("Sucesso", "Ticket registado com sucesso!");
             } else {
+                dto.setIdTicket(editingTicketId); // 🔹 ID do ticket essencial
+                dto.setIdCliente(clienteId);
+
+                // 🔹 Verifica se o backend precisa de algum campo extra
                 service.put("/clientes/" + clienteId + "/tickets/" + editingTicketId, dto);
                 showInfo("Sucesso", "Ticket atualizado com sucesso!");
             }

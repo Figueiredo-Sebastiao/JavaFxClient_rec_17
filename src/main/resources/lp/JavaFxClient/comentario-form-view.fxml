@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20" alignment="CENTER"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.ComentarioFormController"
+      prefWidth="400" prefHeight="250"
+      style="-fx-background-color: #f9f9f9; -fx-padding: 25; -fx-border-radius: 12; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8,0,0,2);">
+
+    <!-- Título do formulário -->
+    <Label fx:id="formTitle" text="Novo Comentário"
+           style="-fx-text-fill: #333333; -fx-font-weight: bold;">
+        <font>
+            <Font size="24"/>
+        </font>
+    </Label>
+
+    <!-- Campo de texto do comentário -->
+    <TextField fx:id="comentarioTxt" promptText="Escreva o comentário"
+               style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #cccccc; -fx-padding: 10;"
+               prefWidth="320"/>
+
+    <!-- Botões -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Salvar" onAction="#onSalvar"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 25; -fx-font-size: 14px;"/>
+        <Button text="Cancelar" onAction="#onCancelar"
+                style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 25; -fx-font-size: 14px;"/>
+    </HBox>
+
+</VBox>
