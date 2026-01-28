@@ -44,7 +44,7 @@ public class ComentarioController {
     @FXML
     public void initialize() {
         comentarioCol.setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getTexto()));
+                cellData -> new SimpleStringProperty(cellData.getValue().getMensagem()));
         dataCol.setCellValueFactory(new PropertyValueFactory<>("data"));
     }
 
