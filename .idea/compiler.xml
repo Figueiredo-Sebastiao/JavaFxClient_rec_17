@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JavaFxClient" />
-        <module name="JavaFxClient_rec_17" />
       </profile>
     </annotationProcessing>
   </component>
