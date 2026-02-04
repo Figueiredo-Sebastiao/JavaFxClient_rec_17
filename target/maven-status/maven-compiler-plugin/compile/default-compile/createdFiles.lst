@@ -5,6 +5,7 @@ lp/JavaFxClient/model/EstadoDTO.class
 lp/JavaFxClient/controllers/TicketTecnicoController.class
 lp/JavaFxClient/controllers/ComentarioController$2.class
 lp/JavaFxClient/controllers/ComentarioFormController.class
+lp/JavaFxClient/controllers/TicketTecnicoFormController.class
 lp/JavaFxClient/controllers/ClienteRegistarController.class
 lp/JavaFxClient/controllers/SelecionarRegistarController.class
 lp/JavaFxClient/controllers/TicketClienteFormController.class
@@ -24,3 +25,4 @@ lp/JavaFxClient/controllers/TicketTecnicoController$1.class
 lp/JavaFxClient/model/TicketDtoC.class
 lp/JavaFxClient/model/UtilizadorDTO.class
 lp/JavaFxClient/model/PrioridadeDTO.class
+lp/JavaFxClient/controllers/TicketClienteController$2.class

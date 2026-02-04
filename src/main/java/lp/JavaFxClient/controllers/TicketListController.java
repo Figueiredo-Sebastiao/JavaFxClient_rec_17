@@ -131,8 +131,8 @@ public class TicketListController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
             stage.setTitle("Tickets");
-            stage.setWidth(800);
-            stage.setHeight(600);
+            stage.setWidth(1000);
+            stage.setHeight(800);
             stage.centerOnScreen();
             stage.showAndWait();
 

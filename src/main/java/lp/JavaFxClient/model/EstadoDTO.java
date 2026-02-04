@@ -11,6 +11,10 @@ public class EstadoDTO {
         this.nome = nome;
     }
 
+    public EstadoDTO(long l) {
+        this.idEstado=l;
+    }
+
     public Long getIdEstado() { return idEstado; }
     public void setIdEstado(Long idEstado) { this.idEstado = idEstado; }
 

@@ -40,7 +40,7 @@ public class TicketClienteFormController {
 
     public void Editar(TicketDtoC ticket) {
         this.editingTicketId = ticket.getIdTicket();
-        this.clienteId = ticket.getIdCliente();
+       // this.clienteId = clienteId;
 
         formTitle.setText("Editar Ticket");
         txtTitulo.setText(ticket.getTitulo());
@@ -69,7 +69,7 @@ public class TicketClienteFormController {
                 service.post("/clientes/" + clienteId + "/tickets", dto);
                 showInfo("Sucesso", "Ticket registado com sucesso!");
             } else {
-                dto.setIdTicket(editingTicketId); // 🔹 ID do ticket essencial
+                dto.setIdTicket(editingTicketId);
                 dto.setIdCliente(clienteId);
 
                 // 🔹 Verifica se o backend precisa de algum campo extra

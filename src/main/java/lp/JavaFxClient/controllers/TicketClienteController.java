@@ -53,7 +53,11 @@ public class TicketClienteController implements Initializable {
     }
 
     @FXML public void onAtualizar() { carregarTickets(); }
+
+    @FXML public void onFiltro() { carregarFiltro(); }
+
     @FXML public void onRegistar() { abrirFormulario(null); }
+
     @FXML public void onEditar() {
         TicketDtoC t = tableTicketsC.getSelectionModel().getSelectedItem();
         if (t == null) erro("Selecione um ticket");
@@ -101,6 +105,17 @@ public class TicketClienteController implements Initializable {
             erro(e.getMessage());
         }
     }
+    private void carregarFiltro() {
+        try {
+            List<TicketDtoC> tickets = service.get(
+                    "/clientes/" + idCliente + "/tickets/pendente",
+                    new TypeReference<List<TicketDtoC>>() {}
+            );
+            tableTicketsC.getItems().setAll(tickets);
+        } catch (Exception e) {
+            erro(e.getMessage());
+        }
+    }
 
     private void abrirFormulario(TicketDtoC ticket) {
         try {
@@ -109,18 +124,20 @@ public class TicketClienteController implements Initializable {
 
             Parent root = loader.load();
             TicketClienteFormController controller = loader.getController();
-            if (ticket == null) {
-                controller.Registo(idCliente);
-            } else {
+            controller.Registo(idCliente);
+
+            if (ticket != null) {
                 controller.Editar(ticket);
             }
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
+            stage.setWidth(1000);
+            stage.setHeight(800);
             stage.showAndWait();
 
-            carregarTickets(); // 🔹 atualiza a tabela após fechar o formulário
+            carregarTickets();
         } catch (Exception e) {
             erro(e.getMessage());
         }

@@ -5,8 +5,6 @@ public class CategoriaDTO {
 
 
     private Long idCategoria;
-
-
     private String categoria;
     
     

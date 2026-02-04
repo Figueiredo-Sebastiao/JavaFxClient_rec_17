@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lp.JavaFxClient.model.EstadoDTO;
+import lp.JavaFxClient.model.TicketDtoC;
 import lp.JavaFxClient.model.TicketDtoT;
 import lp.JavaFxClient.services.ApiService;
 
@@ -58,13 +59,13 @@ public class TicketTecnicoController {
     public void onAtualizar() { carregarTickets(); }
 
     @FXML
-    public void onAdicionar() { abrirFormularioTicket(); }
+    public void onAdicionar() { FormularioAdicionar(); }
 
     @FXML
     public void onEditar() {
         TicketDtoT ticket = tabelaTicketT.getSelectionModel().getSelectedItem();
         if (ticket == null) { showError("Selecione um ticket"); return; }
-        abrirFormularioTicket();
+        FormularioEditar(ticket);
     }
 
     @FXML
@@ -92,7 +93,7 @@ public class TicketTecnicoController {
         }
     }
 
-    private void abrirFormularioTicket() {
+    private void FormularioAdicionar() {
         try {
             URL fxmlURL = getClass().getResource("/lp/JavaFxClient/ticket-lista-view.fxml");
             FXMLLoader loader = new FXMLLoader(fxmlURL);
@@ -112,6 +113,31 @@ public class TicketTecnicoController {
             carregarTickets();
         } catch (Exception e) {
             showError("Erro ao abrir formulário: \n" + e.getMessage());
+        }
+    }
+    private void FormularioEditar(TicketDtoT ticket) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/lp/JavaFxClient/ticket-form-Tecnico-view.fxml"));
+
+            Parent root = loader.load();
+            TicketTecnicoFormController controller = loader.getController();
+            //controller.Registo(idCliente);
+
+            if (ticket != null) {
+                controller.Editar(ticket, idTecnico);
+            }
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setWidth(1000);
+            stage.setHeight(800);
+            stage.showAndWait();
+
+            carregarTickets();
+        } catch (Exception e) {
+            showError(e.getMessage());
         }
     }
 

@@ -65,6 +65,13 @@
                             -fx-font-size: 14px;
                             -fx-background-radius: 6;
                         "/>
+                <Button text="Filtrar" onAction="#onFiltro"
+                        style="
+                            -fx-background-color:#9C27B0;
+                            -fx-text-fill:white;
+                            -fx-font-size: 14px;
+                            -fx-background-radius: 6;
+                        "/>
             </HBox>
 
             <!-- Tabela -->

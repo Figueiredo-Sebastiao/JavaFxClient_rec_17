@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/25"  xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="lp.JavaFxClient.controllers.TicketClienteFormController"
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFxClient.controllers.TicketTecnicoFormController"
       prefWidth="450" prefHeight="500"
       style="
           -fx-background-color: #f4f4f4;
@@ -21,7 +21,7 @@
       ">
 
     <!-- Título do formulário -->
-    <Label fx:id="formTitle" text="Criar Ticket"
+    <Label fx:id="formTitle" text="Editar Ticket"
            style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
 
     <!-- Título -->
@@ -36,22 +36,11 @@
                    "/>
     </HBox>
 
-    <!-- Descrição -->
-    <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="380">
-        <Label text="Descrição:" style="-fx-font-weight: bold; -fx-text-fill: #555555;" prefWidth="100"/>
-        <TextField fx:id="txtDescricao" promptText="Digite a descrição"
-                   style="
-                       -fx-background-radius: 6;
-                       -fx-border-radius: 6;
-                       -fx-border-color: #cccccc;
-                       -fx-padding: 6;
-                   "/>
-    </HBox>
 
-    <!-- Prioridade -->
+    <!-- Estado -->
     <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="380">
-        <Label text="Prioridade:" style="-fx-font-weight: bold; -fx-text-fill: #555555;" prefWidth="100"/>
-        <ChoiceBox fx:id="cbPrioridade" prefWidth="200"
+        <Label text="Estado:" style="-fx-font-weight: bold; -fx-text-fill: #555555;" prefWidth="100"/>
+        <ChoiceBox fx:id="cbEstado" prefWidth="200"
                    style="
                        -fx-background-radius: 6;
                        -fx-border-radius: 6;
@@ -59,16 +48,6 @@
                    "/>
     </HBox>
 
-    <!-- Categoria -->
-    <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="380">
-        <Label text="Categoria:" style="-fx-font-weight: bold; -fx-text-fill: #555555;" prefWidth="100"/>
-        <ChoiceBox fx:id="cbCategoria" prefWidth="200"
-                   style="
-                       -fx-background-radius: 6;
-                       -fx-border-radius: 6;
-                       -fx-border-color: #cccccc;
-                   "/>
-    </HBox>
 
     <!-- Botões -->
     <HBox alignment="CENTER" spacing="20" prefWidth="380">
