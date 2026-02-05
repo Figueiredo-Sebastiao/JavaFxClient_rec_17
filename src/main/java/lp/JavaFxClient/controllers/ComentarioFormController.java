@@ -20,9 +20,6 @@ public class ComentarioFormController {
     private Long utilizadorId;
     private String tipoUtilizador; // CLIENTE ou TECNICO
 
-    // =============================
-    // SETUP
-    // =============================
     public void configurar(Long ticketId, Long utilizadorId, String tipoUtilizador) {
         this.ticketId = ticketId;
         this.utilizadorId = utilizadorId;
@@ -30,9 +27,6 @@ public class ComentarioFormController {
         formTitle.setText("Novo Comentário");
     }
 
-    // =============================
-    // SALVAR
-    // =============================
     @FXML
     public void onSalvar() {
         try {
@@ -52,7 +46,7 @@ public class ComentarioFormController {
             } else {
                 service.post("/tecnicos/" + utilizadorId + "/tickets/" + ticketId + "/comentarios",dto );
             }
-            System.out.println("ID TICKET = " + ticketId);
+            //System.out.println("ID TICKET = " + ticketId);
 
 
             comentarioTxt.getScene().getWindow().hide();

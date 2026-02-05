@@ -81,7 +81,7 @@ public class LoginController {
 
             fecharLogin();
         } catch (IOException e) {
-            showError("Erro ao abrir o Dashboard do Cliente.\nVerifique se o FXML existe em '/lp/JavaFxClient/ticket-cliente-view.fxml'\n" + e.getMessage());
+            showError("Erro ao abrir o Dashboard do Cliente" + e.getMessage());
         }
     }
 

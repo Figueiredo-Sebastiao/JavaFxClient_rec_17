@@ -48,7 +48,7 @@ public class TicketTecnicoFormController {
             // só envia o ID do estado
             service.put(
                     "/tecnicos/" + tecnicoId + "/tickets/" + ticketId + "/estados",
-                    new EstadoDTO(3L) // 3 = Resolvido
+                    new EstadoDTO(3L)
             );
 
             showInfo("Sucesso", "Ticket resolvido com sucesso!");

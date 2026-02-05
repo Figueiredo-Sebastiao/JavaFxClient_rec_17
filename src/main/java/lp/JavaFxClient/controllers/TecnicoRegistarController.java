@@ -1,8 +1,12 @@
 package lp.JavaFxClient.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import lp.JavaFxClient.model.TecnicoDTO;
 import lp.JavaFxClient.services.ApiService;
 
@@ -39,10 +43,12 @@ public class TecnicoRegistarController {
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
         }
+
     }
 
     @FXML
     public void onCancelar() {
         txtNome.getScene().getWindow().hide();
     }
+
 }

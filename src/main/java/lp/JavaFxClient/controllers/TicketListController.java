@@ -107,20 +107,17 @@ public class TicketListController {
         }
     }
 
-    // TRATAMENTO DE ERRO
     private void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR, msg);
         a.showAndWait();
     }
 
-    // TRATAMENTO DE INFORMAÇÃO
     private void showInfo(String title, String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION, msg);
         a.setTitle(title);
         a.showAndWait();
     }
 
-    // Se precisares de abrir formulário (igual ao TicketTecnicoController)
     private void abrirFormularioTicket() {
         try {
             URL fxmlURL = getClass().getResource("/lp/JavaFxClient/ticket-lista-view.fxml");

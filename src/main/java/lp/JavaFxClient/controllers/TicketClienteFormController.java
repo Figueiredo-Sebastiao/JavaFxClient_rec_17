@@ -60,7 +60,7 @@ public class TicketClienteFormController {
             dto.setDescricao(txtDescricao.getText());
             dto.setCategoria(mapCategoriaId(cbCategoria.getValue()));
             dto.setPrioridade(mapPrioridadeId(cbPrioridade.getValue()));
-            dto.setDataInicio(LocalDate.now()); // Mantém a data de início
+            dto.setDataInicio(LocalDate.now());
 
             // 🔹 Se for edição, envia o ID do ticket
             if (editingTicketId == null) {

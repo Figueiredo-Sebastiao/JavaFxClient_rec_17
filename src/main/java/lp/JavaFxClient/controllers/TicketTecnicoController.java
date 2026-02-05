@@ -106,7 +106,7 @@ public class TicketTecnicoController {
             stage.setScene(new Scene(root));
             stage.setTitle("Tickets");
             stage.setWidth(800);
-            stage.setHeight(600);
+            stage.setHeight(1000);
             stage.centerOnScreen();
             stage.showAndWait();
 
@@ -122,7 +122,6 @@ public class TicketTecnicoController {
 
             Parent root = loader.load();
             TicketTecnicoFormController controller = loader.getController();
-            //controller.Registo(idCliente);
 
             if (ticket != null) {
                 controller.Editar(ticket, idTecnico);

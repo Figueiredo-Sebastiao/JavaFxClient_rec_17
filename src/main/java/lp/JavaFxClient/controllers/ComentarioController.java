@@ -43,8 +43,7 @@ public class ComentarioController {
 
     @FXML
     public void initialize() {
-        comentarioCol.setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getMensagem()));
+        comentarioCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMensagem()));
         dataCol.setCellValueFactory(new PropertyValueFactory<>("data"));
     }
 
@@ -57,7 +56,7 @@ public class ComentarioController {
                         new TypeReference<>() {});
             } else {
                 comentarios = service.get("/tecnicos/" + idUtilizador + "/tickets/" + idTicket + "/listaComentarios",
-                        new TypeReference<>() {});
+                            new TypeReference<>() {});
             }
             tableComentario.getItems().setAll(comentarios);
         } catch (Exception e) {
