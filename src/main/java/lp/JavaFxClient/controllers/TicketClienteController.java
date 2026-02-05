@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import lp.JavaFxClient.model.TicketDtoC;
 import lp.JavaFxClient.services.ApiService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -70,6 +71,12 @@ public class TicketClienteController implements Initializable {
         if (t == null) { erro("Selecione um ticket"); return; }
         service.delete("/clientes/" + idCliente + "/tickets/" + t.getIdTicket());
         carregarTickets();
+    }
+
+    @FXML
+    public void onSair() throws IOException {
+        FecharJanela();
+        abrirLogin();
     }
 
     @FXML
@@ -143,7 +150,23 @@ public class TicketClienteController implements Initializable {
         }
     }
 
+    private void abrirLogin() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/login-view.fxml"));
+        Parent root = loader.load();
 
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Login");
+        stage.setWidth(800);
+        stage.setHeight(500);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    private void FecharJanela() {
+        Stage stage = (Stage) tableTicketsC.getScene().getWindow();
+        stage.close();
+    }
 
     private void erro(String m) {
         new Alert(Alert.AlertType.ERROR, m).showAndWait();

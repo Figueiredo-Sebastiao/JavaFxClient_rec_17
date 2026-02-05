@@ -50,14 +50,14 @@ public class LoginController {
             }
 
         } catch (Exception e) {
-            showError("Erro no login:\n" + e.getMessage());
+            showError("Erro no login");
         }
     }
 
     @FXML
     public void onRegistar() {
         try {
-            abrirFXML("/lp/JavaFxClient/SelecionarRegistarView.fxml", "Registar", 800, 600);
+            abrirFXML("/lp/JavaFxClient/SelecionarRegistarView.fxml", "Registar", 800, 1000);
         } catch (Exception e) {
             showError("Erro ao abrir Registo:\n" + e.getMessage());
         }
@@ -107,7 +107,6 @@ public class LoginController {
         }
     }
 
-    // Método genérico para abrir qualquer FXML
     private void abrirFXML(String caminho, String titulo, double width, double height) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
         Parent root = loader.load();
@@ -123,7 +122,6 @@ public class LoginController {
         fecharLogin();
     }
 
-    // Fecha a janela de login atual
     private void fecharLogin() {
         if (email.getScene() != null && email.getScene().getWindow() != null) {
             email.getScene().getWindow().hide();

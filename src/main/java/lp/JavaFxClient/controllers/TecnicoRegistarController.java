@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import lp.JavaFxClient.model.TecnicoDTO;
 import lp.JavaFxClient.services.ApiService;
 
+import java.io.IOException;
+
 public class TecnicoRegistarController {
 
     @FXML private TextField txtNome;
@@ -34,7 +36,6 @@ public class TecnicoRegistarController {
             dto.setEspecialidade(txtEspecialidade.getText());
             dto.setTipo("TECNICO");
             dto.setAutenticado(false);
-
             service.post("/utilizador/registar/tecnico", dto);
 
             new Alert(Alert.AlertType.INFORMATION, "Técnico registado com sucesso!").showAndWait();
@@ -44,6 +45,12 @@ public class TecnicoRegistarController {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
         }
 
+        try {
+            abrirFXML("/lp/JavaFxClient/login-view.fxml", "Registar", 800, 1000);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.INFORMATION, "Erro ao Abrir Dashbaod Tecnico").showAndWait();
+            txtNome.getScene().getWindow().hide();
+        }
     }
 
     @FXML
@@ -51,4 +58,18 @@ public class TecnicoRegistarController {
         txtNome.getScene().getWindow().hide();
     }
 
+    /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void abrirFXML(String caminho, String titulo, double width, double height) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle(titulo);
+        stage.setWidth(width);
+        stage.setHeight(height);
+        stage.centerOnScreen();
+        stage.show();
+    }
 }

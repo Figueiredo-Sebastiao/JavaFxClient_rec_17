@@ -17,6 +17,7 @@ import lp.JavaFxClient.model.TicketDtoC;
 import lp.JavaFxClient.model.TicketDtoT;
 import lp.JavaFxClient.services.ApiService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -57,6 +58,12 @@ public class TicketTecnicoController {
 
     @FXML
     public void onAtualizar() { carregarTickets(); }
+
+    @FXML
+    public void onSair() throws IOException {
+        FecharJanela();
+        abrirLogin();
+    }
 
     @FXML
     public void onAdicionar() { FormularioAdicionar(); }
@@ -165,6 +172,23 @@ public class TicketTecnicoController {
         }
     }
 
+    private void abrirLogin() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lp/JavaFxClient/login-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Login");
+        stage.setWidth(800);
+        stage.setHeight(500);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    private void FecharJanela() {
+        Stage stage = (Stage) tabelaTicketT.getScene().getWindow();
+        stage.close();
+    }
 
     private void showError(String msg) {
         new Alert(Alert.AlertType.ERROR, msg).showAndWait();
